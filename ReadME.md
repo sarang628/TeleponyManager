@@ -8,8 +8,68 @@ TeleponyManager는 단말기의 <b>통신서비스</b>에 대한 정보를 제�
 
 # 실습하기
 
-## TeleponyManager 프로젝트 생성하기
+## teleponyManager 초기화
+```
+telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+```
 
-## TeleponyManager 생성하기
+## getCallState 얻기
+getCallState 함수는 현재 디바이스의 통화상태를 반환합니다.
+CALL_STATE_IDLE, CALL_STATE_RINGING, CALL_STATE_OFFHOOK
+의 상태가 있습니다.
+```
+fun getCallState(): String {
+    return telephonyManager.callState.toString()
+}
+```
 
-## getCallState 실습
+## imei 얻기
+```
+fun getImei(): String {
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_STATE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return "permission denied"
+
+            requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE), 0x01)
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            return "${telephonyManager.imei}"
+        } else {
+            return "${telephonyManager.deviceId}"
+        }
+    }
+```
+
+## 전화번호 얻기
+```
+private fun getLine1Number(): String {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_SMS
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_NUMBERS
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_STATE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            activityMainBinding.btnPermission.setOnClickListener {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.READ_PHONE_NUMBERS,
+                        Manifest.permission.READ_PHONE_STATE
+                    ), 0x01
+                )
+            }
+            return "permission denied"
+        }
+        return "${telephonyManager.line1Number}"
+    }
+```

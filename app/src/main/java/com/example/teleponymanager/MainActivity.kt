@@ -8,31 +8,28 @@ import android.os.Bundle
 import android.telephony.TelephonyManager
 import android.util.Log
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import com.example.teleponymanager.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
+    lateinit var telephonyManager: TelephonyManager
+    lateinit var activityMainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(activityMainBinding.root)
 
-        val telephonyManager: TelephonyManager =
-            getSystemService(TELEPHONY_SERVICE) as TelephonyManager
+        telephonyManager = getSystemService(TELEPHONY_SERVICE) as TelephonyManager
 
-        activityMainBinding.callState.text = telephonyManager.callState.toString()
+        activityMainBinding.callState.text = getCallState()
+        activityMainBinding.imei.text = getImei()
+        activityMainBinding.line1Number.text = getLine1Number()
+    }
 
-        requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE), 0x01)
-
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            activityMainBinding.imei.text = "${telephonyManager.imei}"
-        } else {
-            activityMainBinding.imei.text = "${telephonyManager.deviceId}"
-        }
-
+    private fun getLine1Number(): String {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.READ_SMS
@@ -45,14 +42,39 @@ class MainActivity : AppCompatActivity() {
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             activityMainBinding.btnPermission.setOnClickListener {
-                requestPermissions(arrayOf(Manifest.permission.READ_SMS,
-                    Manifest.permission.READ_PHONE_NUMBERS,
-                    Manifest.permission.READ_PHONE_STATE), 0x01)
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.READ_SMS,
+                        Manifest.permission.READ_PHONE_NUMBERS,
+                        Manifest.permission.READ_PHONE_STATE
+                    ), 0x01
+                )
             }
-            return
+            return "permission denied"
         }
-        activityMainBinding.line1Number.text = "${telephonyManager.line1Number}"
+        return "${telephonyManager.line1Number}"
+    }
 
+    fun getCallState(): String {
+        return telephonyManager.callState.toString()
+    }
 
+    fun getImei(): String {
+
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.READ_PHONE_STATE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            return "permission denied"
+
+            requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE), 0x01)
+        }
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            return "${telephonyManager.imei}"
+        } else {
+            return "${telephonyManager.deviceId}"
+        }
     }
 }
