@@ -23,13 +23,6 @@
             android:layout_height="15dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/btn_refresh"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="갱신" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -65,13 +58,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-
-        <Button
-            android:id="@+id/btn_permission"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="request permission" />
 
     </LinearLayout>
 
