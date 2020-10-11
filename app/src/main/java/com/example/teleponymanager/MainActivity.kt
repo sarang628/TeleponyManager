@@ -19,6 +19,9 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(activityMainBinding.root)
 
+        //request permission
+        //srTelephonyManager.requestImeiPermission(this)
+
         activityMainBinding.callState.text = srTelephonyManager.getCallState()
         activityMainBinding.imei.text = srTelephonyManager.getImei()
         activityMainBinding.line1Number.text = srTelephonyManager.getLine1Number()
