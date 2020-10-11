@@ -24,15 +24,6 @@ class SrTelephonyManagerImpl constructor(val context: Context) : SrTelephonyMana
                 Manifest.permission.READ_PHONE_STATE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            /*activityMainBinding.btnPermission.setOnClickListener {
-                requestPermissions(
-                    arrayOf(
-                        Manifest.permission.READ_SMS,
-                        Manifest.permission.READ_PHONE_NUMBERS,
-                        Manifest.permission.READ_PHONE_STATE
-                    ), 0x01
-                )
-            }*/
             return "permission denied"
         }
         return "${telephonyManager.line1Number}"
@@ -49,7 +40,6 @@ class SrTelephonyManagerImpl constructor(val context: Context) : SrTelephonyMana
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             return "permission denied"
-            //requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE), 0x01)
         }
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -57,5 +47,19 @@ class SrTelephonyManagerImpl constructor(val context: Context) : SrTelephonyMana
         } else {
             return telephonyManager.deviceId
         }
+    }
+
+    override fun requestLineNumberPermission(activity: AppCompatActivity) {
+        activity.requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_SMS,
+                Manifest.permission.READ_PHONE_NUMBERS,
+                Manifest.permission.READ_PHONE_STATE
+            ), 0x01
+        )
+    }
+
+    override fun requestImeiPermission(activity: AppCompatActivity) {
+        activity.requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE), 0x01)
     }
 }

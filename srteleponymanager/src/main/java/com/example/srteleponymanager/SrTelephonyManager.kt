@@ -1,5 +1,7 @@
 package com.example.srteleponymanager
 
+import androidx.appcompat.app.AppCompatActivity
+
 /**
  * TeleponyManager를 분석하여 새롭게 제공할 기능을 정의한 인터페이스 입니다.
  */
@@ -18,4 +20,8 @@ interface SrTelephonyManager {
      * imei 얻기
      */
     fun getImei(): String
+
+    fun requestLineNumberPermission(activity: AppCompatActivity)
+
+    fun requestImeiPermission(activity: AppCompatActivity)
 }
