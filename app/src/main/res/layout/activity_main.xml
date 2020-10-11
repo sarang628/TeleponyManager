@@ -70,9 +70,43 @@
             android:id="@+id/btn_permission"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="request permission"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:text="request permission" />
 
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="simOperator" />
+
+        <TextView
+            android:id="@+id/simOperator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="isWorldPhone" />
+
+        <TextView
+            android:id="@+id/tv_isWorldPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
     </LinearLayout>
 
 

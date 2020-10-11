@@ -1,14 +1,10 @@
 package com.example.teleponymanager
 
 import android.Manifest
-import android.R
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.telephony.TelephonyManager
-import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.teleponymanager.databinding.ActivityMainBinding
 
@@ -27,6 +23,8 @@ class MainActivity : AppCompatActivity() {
         activityMainBinding.callState.text = getCallState()
         activityMainBinding.imei.text = getImei()
         activityMainBinding.line1Number.text = getLine1Number()
+        activityMainBinding.simOperator.text = telephonyManager.simOperator
+        activityMainBinding.tvIsWorldPhone.text = "${telephonyManager.isWorldPhone}"
     }
 
     private fun getLine1Number(): String {
