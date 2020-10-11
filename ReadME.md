@@ -81,7 +81,7 @@ private fun getLine1Number(): String {
 /**
  * TeleponyManager를 분석하여 새롭게 제공할 기능을 정의한 인터페이스 입니다.
  */
-interface SrTeleponyManager {
+interface SrTelephonyManager {
     /**
      * 휴대전화번호 얻기
      */
